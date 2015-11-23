@@ -33,7 +33,10 @@ tryCatch({
 	print(nrows)
 
 	#create output directory and switch to it
-	setwd(sprintf("log_%s_%s", args[1], gsub(" ", "_", date()))
+	outdir <- sprintf("log_%s", gsub("[ :/]", "_", paste(fcsfilename,date())))
+	dir.create(outdir)
+	print(outdir)
+	setwd(outdir)
 	#pick three random points to be anchor points
 	anchors <- data[sample(1:nrows, 3, replace = FALSE), ]
 
@@ -46,14 +49,14 @@ tryCatch({
 	#prepend anchor points to each submatrix
 	subsets <- lapply(subsets, function(x) { rbind(anchors, x)})
 
-	#compute distance matrices and write them to file
-	for(j in 1:length(subsets)){
+	#compute distance matrices and write them to file	
+	for(i in 1:length(subsets)){
 	
 		d <- dist(subsets[[i]], method = "manhattan")
 		
-		cat(npoints, file=j, sep="\n")	
-		write.table(as.matrix(d), file=j, append = TRUE, sep = " ", col.names = FALSE, row.names = FALSE)
-
+		cat(4, file="matrices", append=TRUE, sep="\n")	
+		write.table(as.matrix(d), file="matrices", append = TRUE, sep = " ", col.names = FALSE, row.names = FALSE)
+		cat("", file="matrices", append=TRUE, sep="\n")
 	}
 
 	},
