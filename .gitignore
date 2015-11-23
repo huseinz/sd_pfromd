@@ -1,2 +1,4 @@
 anchorpoints.txt
 log*
+*.o
+*.bin
