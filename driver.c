@@ -318,7 +318,7 @@ int main(int argc, char* argv[]) {
   }
 
   if (rank == master) {
-    printf("[pointfinder] master: all ouput written to %s.\n", full_main_log_path); 
+    printf("[pointfinder] master: all output written to %s.\n", full_main_log_path); 
   }
 
   MPI_Finalize();
