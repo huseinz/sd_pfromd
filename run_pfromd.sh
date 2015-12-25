@@ -27,6 +27,7 @@ if [ $? -ne 0 ]; then
 	exit 1
 fi
 
+echo
 NUMPOINTS=`grep -o '\[1\] [0-9]\+' gmf | sed 's/\[1\] //g'`
 echo "Final number of points: $NUMPOINTS" 
 DIR=`grep -o '".\+"' gmf | tr -d '"'`
@@ -55,7 +56,7 @@ ANCHORPOINTS=`$APOINTPARSE_PATH log_*`
 echo
 echo "Projected anchorpoints: $ANCHORPOINTS"
 
-ls matrices | head -n 10 | parallel -j$JOBS "$POINTFINDER_PATH" matrices/{} 500 2500 500 1000000000 $ANCHORPOINTS
+ls matrices | parallel -j$JOBS "\"$POINTFINDER_PATH\" matrices/{} 500 2500 500 1000000000 $ANCHORPOINTS"
 
 "$BESTPOINTPARSE_PATH" > points.txt
 

@@ -56,8 +56,8 @@ tryCatch({
 	
 		d <- dist(subsets[[i]], method = "manhattan")
 		
-		cat(4, file=sprintf("matrices/matrices.%d",i), sep="\n")	
-		write.table(as.matrix(d), file=sprintf("matrices/matrices.%d",i), append = TRUE, sep = " ", col.names = FALSE, row.names = FALSE)
+		cat(4, file=sprintf("matrices/matrix.%d",i), sep="\n")	
+		write.table(as.matrix(d), file=sprintf("matrices/matrix.%d",i), append = TRUE, sep = " ", col.names = FALSE, row.names = FALSE)
 	}
 
 	},
