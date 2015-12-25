@@ -56,7 +56,7 @@ ANCHORPOINTS=`$APOINTPARSE_PATH log_*`
 echo
 echo "Projected anchorpoints: $ANCHORPOINTS"
 
-ls matrices | parallel -j$JOBS "\"$POINTFINDER_PATH\" matrices/{} 500 2500 500 1000000000 $ANCHORPOINTS"
+ls matrices | parallel --eta -j$JOBS "\"$POINTFINDER_PATH\" matrices/{} 500 2500 500 1000000000 $ANCHORPOINTS"
 
 "$BESTPOINTPARSE_PATH" > points.txt
 
