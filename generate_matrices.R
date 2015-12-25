@@ -40,8 +40,9 @@ tryCatch({
 	#pick three random points to be anchor points
 	anchors <- data[sample(1:nrows, 3, replace = FALSE), ]
 
-	#write anchor points to file so we know what they are
-	write.table(as.matrix(anchors), file="anchorpoints", sep=" ", col.names = FALSE, row.names = FALSE)
+	#write anchor matrix to file
+	cat(3, file = "anchorpoints", sep = "\n")
+	write.table(as.matrix(dist(anchors, method = "manhattan")), file = "anchorpoints", sep = " ", col.names = FALSE, row.names = FALSE, append = TRUE)
 
 	#split the data matrix into submatrices of one row each
 	subsets <- split(as.data.frame(data), rep(1:nrows, each = 1))
@@ -49,16 +50,16 @@ tryCatch({
 	#prepend anchor points to each submatrix
 	subsets <- lapply(subsets, function(x) { rbind(anchors, x)})
 
+	dir.create("matrices")
 	#compute distance matrices and write them to file	
 	for(i in 1:length(subsets)){
 	
 		d <- dist(subsets[[i]], method = "manhattan")
 		
-		cat(4, file="matrices", append=TRUE, sep="\n")	
-		write.table(as.matrix(d), file="matrices", append = TRUE, sep = " ", col.names = FALSE, row.names = FALSE)
-		cat("", file="matrices", append=TRUE, sep="\n")
+		cat(4, file=sprintf("matrices/matrices.%d",i), sep="\n")	
+		write.table(as.matrix(d), file=sprintf("matrices/matrices.%d",i), append = TRUE, sep = " ", col.names = FALSE, row.names = FALSE)
 	}
 
 	},
-	error = function(e) {print(e);}
+	error = function(e) {print(e); quit(status=1);}
 	)
