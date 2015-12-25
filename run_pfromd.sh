@@ -1,20 +1,17 @@
 #!/bin/bash
 
+GENMATRICES_PATH="./generate_matrices.R"
+POINTFINDER_PATH="../pointfinder.sh"
+DRIVER_PATH="../driver.bin"
+APOINTPARSE_PATH="../parse_anchorpoints.sh"
+BESTPOINTPARSE_PATH="../parse_bestpoints.sh"
+
 if [ -z "$1" ]; then 
 	echo "No FCS file supplied"
 	exit 1
 fi
 
 FCSFILE="$1"
-
-./generate_matrices.sh "$FCSFILE" > gmf.txt
-
-if [ $? -ne 0 ]; then
-	exit 1
-fi
-
-DIR=`grep -o '".\+"' gmf.txt | tr -d '"'`
-rm gmf.txt
 
 if [ -z "$2" ]; then 
 	echo "No job arg supplied"
@@ -23,25 +20,34 @@ fi
 
 JOBS=$2
 
+"$GENMATRICES_PATH" "$FCSFILE" > gmf
+
+if [ $? -ne 0 ]; then
+	exit 1
+fi
+
+DIR=`grep -o '".\+"' gmf | tr -d '"'`
+rm gmf
+
 cd "$DIR"
 
-if [ -f "../pointfinder.sh" ]; then
-cp ../pointfinder.sh .
+if [ -f "$GENMATRICES_PATH" ]; then
+cp "$GENMATRICES_PATH" .
 fi
-if [ -f "../driver.bin" ]; then
-cp ../driver.bin .
+if [ -f "$DRIVER_PATH" ]; then
+cp "$DRIVER_PATH" .
 fi
-if [ -f "../parse_anchorpoints.sh" ]; then
-cp ../parse_anchorpoints.sh .
+if [ -f "$APOINTPARSE_PATH" ]; then
+cp "$APOINTPARSE_PATH" .
 fi
-if [ -f "../parse_bestpoints.sh" ]; then
-cp ../parse_bestpoints.sh .
+if [ -f "$BESTPOINTPARSE_PATH" ]; then
+cp "$BESTPOINTPARSE_PATH" .
 fi
 
-./pointfinder.sh anchorpoints 0 3 1 1000000000
+"$POINTFINDER_PATH" anchorpoints 0 3 1 1000000000
 
-ANCHORPOINTS=`./parse_anchorpoints.sh log_*`
+ANCHORPOINTS=`$APOINTPARSE_PATH log_*`
 
-ls matrices | parallel -j$JOBS ./pointfinder.sh matrices/{} 500 2500 500 1000000000 $ANCHORPOINTS
+ls matrices | parallel -j$JOBS "$POINTFINDER_PATH" matrices/{} 500 2500 500 1000000000 $ANCHORPOINTS
 
-./givepoints.sh
+"$BESTPOINTPARSE_PATH" > points.txt
