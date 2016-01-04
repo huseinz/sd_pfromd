@@ -31,7 +31,6 @@ tryCatch({
 	nrows <- dim(data)[1]
 	ncols <- dim(data)[2]
 	data <- array(data, dim = c(nrows, ncols))
-	print(nrows)
 
 	#create output directory and switch to it
 	outdir <- sprintf("log_%s", gsub("[ :/]", "_", paste(fcsfilename,date())))
@@ -46,9 +45,11 @@ tryCatch({
 	write.table(as.matrix(dist(anchors, method = "manhattan")), file = "anchorpoints", sep = " ", col.names = FALSE, row.names = FALSE, append = TRUE)
 
 	#if positive N is supplied then randomly select N points
-	if(npoints <= 0){
+	if(npoints > 0){
 		data <- data[sample(1:nrows, npoints, replace = FALSE), ]
+		nrows <- dim(data)[1]
 	}
+	print(nrows)
 
 	#split the data matrix into submatrices of one row each
 	subsets <- split(as.data.frame(data), rep(1:nrows, each = 1))
