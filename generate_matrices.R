@@ -7,6 +7,7 @@ tryCatch({
 	
 	args <- commandArgs(trailingOnly=TRUE)
 	fcsfilename <- args[1]
+	npoints <- args[2] #number of points to randomly select from fcsfile
 
 	#extract point data from file 
   	data <- read.FCS(fcsfilename)
@@ -43,6 +44,11 @@ tryCatch({
 	#write anchor matrix to file
 	cat(3, file = "anchorpoints", sep = "\n")
 	write.table(as.matrix(dist(anchors, method = "manhattan")), file = "anchorpoints", sep = " ", col.names = FALSE, row.names = FALSE, append = TRUE)
+
+	#if positive N is supplied then randomly select N points
+	if(npoints <= 0){
+		data <- data[sample(1:nrows, npoints, replace = FALSE), ]
+	}
 
 	#split the data matrix into submatrices of one row each
 	subsets <- split(as.data.frame(data), rep(1:nrows, each = 1))

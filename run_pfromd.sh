@@ -1,33 +1,65 @@
 #!/bin/bash
 
+
+usage() {
+	echo "Usage: $0 [-j N] [-n N] FILE"
+	echo "	-j N: run N instances of pfromd concurrently"
+	echo "	-n N: project at most N points" 
+	echo "	FILE: an FCS formatted file"
+	exit 1
+}
+
 GENMATRICES_PATH="./generate_matrices.R"
 POINTFINDER_PATH="../pointfinder.sh"
 DRIVER_PATH="../driver.bin"
 APOINTPARSE_PATH="../parse_anchorpoints.sh"
 BESTPOINTPARSE_PATH="../parse_bestpoints.sh"
 
-if [ -z "$1" ]; then 
+JOBS=1
+MAXPOINTS=0
+while getopts "j:n:" o; do 
+	case "$o" in
+		j)
+			JOBS="$OPTARG"
+			(( JOBS >= 1 )) || usage
+			;;
+		n)	
+			MAXPOINTS="$OPTARG" 
+			(( MAXPOINTS > 0 )) || usage  
+			;;
+		?)
+			usage		
+			;;
+	esac
+done 
+
+shift "$((OPTIND - 1))"
+if  [ -z "$1" ]; then 
 	echo "No FCS file supplied"
 	exit 1
 fi
 
-FCSFILE="$1"
+FCSFILE="$1" 
 
-if [ -z "$2" ]; then 
-	echo "No job arg supplied"
-	exit 1
+echo "FCS file:" $FCSFILE
+if [ ! -f "$FCSFILE" ]; then
+	echo "Supplied FCS file does not exist"
+	usage
 fi
 
-JOBS=$2
+echo "Jobs:" $JOBS 
+if  (( MAXPOINTS )); then
+	echo "Max points:" $MAXPOINTS
+fi 
 
 echo "Parsing FCS file and generating submatrices..."
-"$GENMATRICES_PATH" "$FCSFILE" > gmf
+"$GENMATRICES_PATH" "$FCSFILE" "$MAXPOINTS" > gmf
 
 if [ $? -ne 0 ]; then
 	exit 1
 fi
 
-echo
+
 NUMPOINTS=`grep -o '\[1\] [0-9]\+' gmf | sed 's/\[1\] //g'`
 echo "Final number of points: $NUMPOINTS" 
 DIR=`grep -o '".\+"' gmf | tr -d '"'`
