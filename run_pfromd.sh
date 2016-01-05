@@ -81,8 +81,8 @@ if [ -f "$BESTPOINTPARSE_PATH" ]; then
 cp "$BESTPOINTPARSE_PATH" .
 fi
 
-echo "Projecting anchorpoints..."
-"$POINTFINDER_PATH" anchorpoints 0 3 1 1000000000
+#echo "Projecting anchorpoints..."
+#"$POINTFINDER_PATH" anchorpoints 0 3 1 1000000000
 
 ANCHORPOINTS=`$APOINTPARSE_PATH log_*`
 echo

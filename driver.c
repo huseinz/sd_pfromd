@@ -685,7 +685,10 @@ void gencode(double** d, int sz, char* file_location, int current_allowed_error,
     for (int j = 0; j < sz; j++)  {
       if (i < j) {
 	fprintf(fp, "(assert (bvuge del_p%d_p%d %s))\n", i, j, zero_as_hexstr);
-	fprintf(fp, "(assert (bvule del_p%d_p%d %s))\n", i, j, error_upper_bound);
+	if(has_anchor_pts == 1 && j == 3)
+		fprintf(fp, "(assert (bvule del_p%d_p%d %s))\n", i, j, error_upper_bound);
+	else
+		fprintf(fp, "(assert (bvule del_p%d_p%d %s))\n", i, j, zero_as_hexstr);
 	}
     }  
   fprintf(fp, "\n");

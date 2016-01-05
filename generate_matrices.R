@@ -37,18 +37,33 @@ tryCatch({
 	dir.create(outdir)
 	print(outdir)
 	setwd(outdir)
-	#pick three random points to be anchor points
-	anchors <- data[sample(1:nrows, 3, replace = FALSE), ]
-
-	#write anchor matrix to file
-	cat(3, file = "anchorpoints", sep = "\n")
-	write.table(as.matrix(dist(anchors, method = "manhattan")), file = "anchorpoints", sep = " ", col.names = FALSE, row.names = FALSE, append = TRUE)
 
 	#if positive N is supplied then randomly select N points
 	if(npoints > 0){
 		data <- data[sample(1:nrows, npoints, replace = FALSE), ]
 		nrows <- dim(data)[1]
 	}
+
+	while(TRUE){
+		#pick three random points to be anchor points
+		anchorrows <- sample(1:nrows, 3, replace = FALSE)
+		anchors <- data[anchorrows, ]
+
+		#write anchor matrix to file
+		cat(3, file = "anchorpoints", sep = "\n")
+		write.table(as.matrix(dist(anchors, method = "manhattan")), file = "anchorpoints", 
+			sep = " ", col.names = FALSE, row.names = FALSE, append = TRUE)
+		
+		#check if anchorpoints can be projected with no distortion
+		#repeat until they do
+		if(system2("../project_anchorpoints.sh", wait = TRUE) == 0){
+			break
+		}
+	}
+	
+	#remove anchor points from data matrix 
+	data <- data[-(anchorrows), ] 
+	nrows <- dim(data)[1]
 	print(nrows)
 
 	#split the data matrix into submatrices of one row each
