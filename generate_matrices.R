@@ -33,7 +33,7 @@ tryCatch({
 	data <- array(data, dim = c(nrows, ncols))
 
 	#create output directory and switch to it
-	outdir <- sprintf("log_%s", gsub("[ :/]", "_", paste(fcsfilename,date())))
+	outdir <- sprintf("log_%s", gsub("[ :/]", "_", paste(basename(fcsfilename),date())))
 	dir.create(outdir)
 	print(outdir)
 	setwd(outdir)
