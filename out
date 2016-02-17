@@ -1,0 +1,210 @@
+FCS file: fcsFiles/028.fcs
+Jobs: 10
+Max points: 100
+Parsing FCS file and generating submatrices...
+Final number of points: 97
+Log directory: log_028.fcs_Wed_Feb_17_16_28_26_2016
+
+[pointfinder] successfully created log dir log_anchorpoints_16_28_31_EST_17_Feb_2016_zubir_on_cube4.
+[pointfinder] master: All slaves have terminated, will parse z3 output now.
+[pointfinder] master: all output written to log_anchorpoints_16_28_31_EST_17_Feb_2016_zubir_on_cube4/main.log.
+[pointfinder] pointfinder has terminated.
+
+Projected anchorpoints: 707340074 238331096 707339785 238333202 707339200 238332415 
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+11
+[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANCE_ERROR)/ERROR_INCREMENT is integral
+
+Done
+Projected points written to /home/zubir/git/sd_pfromd/log_028.fcs_Wed_Feb_17_16_28_26_2016/points.txt

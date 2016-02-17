@@ -608,13 +608,13 @@ void gencode(double** d, int sz, char* file_location, int current_allowed_error,
     fprintf(fp, "; anchor points are known exactly\n");
     fprintf(fp, "(assert (= p0x %s))\n", int_2_32bithex(anchorp1x));
     fprintf(fp, "(assert (= p0y %s))\n", int_2_32bithex(anchorp1y));
-    fprintf(fp, "(assert (= p0z %s))\n", int_2_32bithex(anchorp1y));
+    fprintf(fp, "(assert (= p0z %s))\n", int_2_32bithex(anchorp1z));
     fprintf(fp, "(assert (= p1x %s))\n", int_2_32bithex(anchorp2x));
     fprintf(fp, "(assert (= p1y %s))\n", int_2_32bithex(anchorp2y));
-    fprintf(fp, "(assert (= p1z %s))\n", int_2_32bithex(anchorp1y));
+    fprintf(fp, "(assert (= p1z %s))\n", int_2_32bithex(anchorp2z));
     fprintf(fp, "(assert (= p2x %s))\n", int_2_32bithex(anchorp3x));
     fprintf(fp, "(assert (= p2y %s))\n", int_2_32bithex(anchorp3y));
-    fprintf(fp, "(assert (= p2z %s))\n", int_2_32bithex(anchorp1y));
+    fprintf(fp, "(assert (= p2z %s))\n", int_2_32bithex(anchorp3z));
     fprintf(fp, "\n");
   }
 
