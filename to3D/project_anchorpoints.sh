@@ -1,7 +1,6 @@
 #/bin/bash
 
-cp ../driver.bin .
-../pointfinder.sh anchorpoints 0 3 1 1000000000
+./pointfinder.sh anchorpoints 0 1 1 1000000000
 
 GREPVAL=`grep 'UNSAT for max. distortion = 0.' log*/main.log`
 

@@ -1,5 +1,6 @@
 #!/bin/bash
 
+set -e
 
 usage() {
 	echo "Usage: $0 [-j N] [-n N] FILE"
@@ -8,12 +9,13 @@ usage() {
 	echo "	FILE: an FCS formatted file"
 	exit 1
 }
-
-GENMATRICES_PATH="./generate_matrices.R"
-POINTFINDER_PATH="../pointfinder.sh"
-DRIVER_PATH="../driver.bin"
-APOINTPARSE_PATH="../parse_anchorpoints.sh"
-BESTPOINTPARSE_PATH="../parse_bestpoints.sh"
+TOPDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+GENMATRICES_PATH="${TOPDIR}/generate_matrices.R"
+POINTFINDER_PATH="${TOPDIR}/pointfinder.sh"
+ANCHORPOINTFINDER_PATH="${TOPDIR}/project_anchorpoints.sh"
+DRIVER_PATH="${TOPDIR}/driver.bin"
+APOINTPARSE_PATH="${TOPDIR}/parse_anchorpoints.sh"
+BESTPOINTPARSE_PATH="${TOPDIR}/parse_bestpoints.sh"
 
 JOBS=1
 MAXPOINTS=0
@@ -52,21 +54,14 @@ if  (( MAXPOINTS )); then
 	echo "Max points:" $MAXPOINTS
 fi 
 
-echo "Parsing FCS file and generating submatrices..."
-"$GENMATRICES_PATH" "$FCSFILE" "$MAXPOINTS" > gmf
+BASEFILE=`basename $FCSFILE`
+DATE=`date "+%F_%H_%M_%S"`
+LOGDIR="log_$BASEFILE_$DATE"
 
-if [ $? -ne 0 ]; then
-	exit 1
-fi
-
-
-NUMPOINTS=`grep -o '\[1\] [0-9]\+' gmf | sed 's/\[1\] //g'`
-echo "Final number of points: $NUMPOINTS" 
-DIR=`grep -o '".\+"' gmf | tr -d '"'`
-echo "Log directory: $DIR"
-rm gmf
-
-cd "$DIR"
+mkdir "$LOGDIR"
+cp "$FCSFILE" "$LOGDIR"
+cd "$LOGDIR"
+echo "Log directory: `pwd`"
 
 if [ -f "$GENMATRICES_PATH" ]; then
 cp "$GENMATRICES_PATH" .
@@ -80,18 +75,37 @@ fi
 if [ -f "$BESTPOINTPARSE_PATH" ]; then
 cp "$BESTPOINTPARSE_PATH" .
 fi
+if [ -f "$POINTFINDER_PATH" ]; then
+cp "$POINTFINDER_PATH" .
+fi
+if [ -f "$ANCHORPOINTFINDER_PATH" ]; then
+cp "$ANCHORPOINTFINDER_PATH" .
+fi
 
-#echo "Projecting anchorpoints..."
-#"$POINTFINDER_PATH" anchorpoints 0 3 1 1000000000
+
+echo "Parsing FCS file, generating submatrices, and projecting anchorpoints..."
+./generate_matrices.R "$FCSFILE" "$MAXPOINTS" > gmf
+
+if [ $? -ne 0 ]; then
+	exit 1
+fi
+
+
+NUMPOINTS=`grep -o '\[1\] [0-9]\+' gmf | sed 's/\[1\] //g'`
+echo "Final number of points: $NUMPOINTS" 
+DIR=`grep -o '".\+"' gmf | tr -d '"'`
+rm gmf
 
 ANCHORPOINTS=`$APOINTPARSE_PATH log_*`
 echo
 echo "Projected anchorpoints: $ANCHORPOINTS"
 
-ls matrices | parallel --eta -j$JOBS "\"$POINTFINDER_PATH\" matrices/{} 250 2250 250 1000000000 $ANCHORPOINTS"
+echo "Projecting points..."
+ls matrices | parallel --eta -j$JOBS "\"$POINTFINDER_PATH\" matrices/{} 1500 2000 500 1000000000 $ANCHORPOINTS"
 
-"$BESTPOINTPARSE_PATH" > points.txt
+echo
+echo "Parsing output files, this will take a while..."
+"$BESTPOINTPARSE_PATH" > ${LOGDIR}_points.txt
 
-echo 
 echo "Done" 
-echo "Projected points written to `pwd`/points.txt"
+echo "Projected points written to ${TOPDIR}/points.txt"

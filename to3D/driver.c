@@ -85,7 +85,6 @@ int main(int argc, char* argv[]) {
     if ( (argc == 7) || (argc == 16)) {
       if (argc == 7) {
 	HAS_ANCHOR_POINTS = 0;
-	printf("No anchor pts\n");
       }
       else {
 	HAS_ANCHOR_POINTS = 1;

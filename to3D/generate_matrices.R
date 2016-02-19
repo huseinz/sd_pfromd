@@ -33,10 +33,10 @@ tryCatch({
 	data <- array(data, dim = c(nrows, ncols))
 
 	#create output directory and switch to it
-	outdir <- sprintf("log_%s", gsub("[ :/]", "_", paste(basename(fcsfilename),date())))
-	dir.create(outdir)
-	print(outdir)
-	setwd(outdir)
+#	outdir <- sprintf("log_%s", gsub("[ :/]", "_", paste(basename(fcsfilename),date())))
+#	dir.create(outdir)
+#	print(outdir)
+#	setwd(outdir)
 
 	#if positive N is supplied then randomly select N points
 	if(npoints > 0){
@@ -56,7 +56,7 @@ tryCatch({
 		
 		#check if anchorpoints can be projected with no distortion
 		#repeat until they do
-		if(system2("../project_anchorpoints.sh", wait = TRUE) == 0){
+		if(system2("./project_anchorpoints.sh", wait = TRUE) == 0){
 			break
 		}
 	}
