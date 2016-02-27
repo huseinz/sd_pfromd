@@ -30,10 +30,13 @@ static int POINT_COORDINATES_UPPER_BOUND;
 static int HAS_ANCHOR_POINTS;
 static int anchorp1x;
 static int anchorp1y;
+static int anchorp1z;
 static int anchorp2x;
 static int anchorp2y;
+static int anchorp2z;
 static int anchorp3x;
 static int anchorp3y;
+static int anchorp3z;
 
 
 char* generate_smt_output_filename(char* logdirname, int delvalue);
@@ -79,24 +82,25 @@ int main(int argc, char* argv[]) {
     char tstampdirname[MX200];
     FILE* main_log_fp;
     
-    if ( (argc == 7) || (argc == 13)) {
+    if ( (argc == 7) || (argc == 16)) {
       if (argc == 7) {
 	HAS_ANCHOR_POINTS = 0;
-	//printf("No anchor pts\n");
       }
       else {
 	HAS_ANCHOR_POINTS = 1;
 	
 	anchorp1x = atoi(argv[7]);
 	anchorp1y = atoi(argv[8]);
-	anchorp2x = atoi(argv[9]);
-	anchorp2y = atoi(argv[10]);
-	anchorp3x = atoi(argv[11]);
-	anchorp3y = atoi(argv[12]);
-	//printf("driver recd anchor pts: [(%d, %d), (%d, %d), (%d, %d)]\n", anchorp1x, anchorp1y, anchorp2x, anchorp2y, anchorp3x, anchorp3y);
+	anchorp1z = atoi(argv[9]);
+	anchorp2x = atoi(argv[10]);
+	anchorp2y = atoi(argv[11]);
+	anchorp2z = atoi(argv[12]);
+	anchorp3x = atoi(argv[13]);
+	anchorp3y = atoi(argv[14]);
+	anchorp3z = atoi(argv[15]);
+//	printf("driver recd anchor pts: [(%d, %d, %d), (%d, %d, %d), (%d, %d, %d)]\n", anchorp1x, anchorp1y, anchorp1z, anchorp2x, anchorp2y, anchorp2z, anchorp3x, anchorp3y, anchorp3z);
       }
 
-      //exit(1);
 
       DISTANCE_ERROR_LOWER_BOUND = atoi(argv[2]);
       DISTANCE_ERROR_UPPER_BOUND = atoi(argv[3]);
@@ -123,10 +127,14 @@ int main(int argc, char* argv[]) {
       if (main_log_fp == NULL) {
 	fprintf(stderr, "Could not open file %s. Quitting.\n", argv[1]);
 	exit(1);	 
-      } else {
+      }
+      else {
 	fprintf(main_log_fp, "Input file: %s\n", argv[1]);
 	fprintf(main_log_fp, "SMT code bitvector size: %s.\n", BITVECSZ);
-	fprintf(main_log_fp, "Coordinate space: (0,0) to (%d,%d).\n\n", POINT_COORDINATES_UPPER_BOUND, POINT_COORDINATES_UPPER_BOUND);
+	fprintf(main_log_fp, "Coordinate space: (0,0) to (%d,%d).\n", POINT_COORDINATES_UPPER_BOUND, POINT_COORDINATES_UPPER_BOUND);
+	fprintf(main_log_fp, "Anchor points: (%d,%d,%d) (%d,%d,%d) (%d,%d,%d)\n\n", 	anchorp1x, anchorp1y, anchorp1z,
+											anchorp2x, anchorp2y, anchorp2z,
+											anchorp3x, anchorp3y, anchorp3z);
       }
 
       //broadcast names to all slaves
@@ -158,6 +166,7 @@ int main(int argc, char* argv[]) {
       thread_delta_table[0] = -1;
     } else {
       fprintf(stderr, "Usage: ./driver file_name distance_min_error distance_max_error distance_error_increments log_directory_location. Quitting [p1.x p1.y p2.x p2.y p3.x p3.y].\n");
+	fprintf(stderr, "%d\n", argc);
       exit(1);
     }
 
@@ -225,7 +234,7 @@ int main(int argc, char* argv[]) {
 	fprintf(main_log_fp, "%s\n\n", parse_ret_val);
 	fflush(main_log_fp);
       } else {
-	fprintf(main_log_fp, "[pointfinfer] Parsing file %s failed.\n\n", output_flname_from_slave);
+	fprintf(main_log_fp, "[pointfinder] Parsing file %s failed.\n\n", output_flname_from_slave);
       }
     }
     printf("[pointfinder] master: All slaves have terminated, will parse z3 output now.\n");
@@ -413,7 +422,7 @@ char* parsefile(char* flname, int numberofpoints, int error_value) {
   char answers[1000]; //remove magic number
  
   int num_points_parsed = 0;
-  char* all_points_parsed[2*numberofpoints];
+  char* all_points_parsed[3*numberofpoints]; //magic 
   //all_points_parsed = malloc(sizeof(char) * 2*numberofpoints); //2 coordinates
 
   //reading point values
@@ -469,7 +478,7 @@ char* parsefile(char* flname, int numberofpoints, int error_value) {
   //display_array_of_strings(all_dels_parsed, num_of_deltas);
 
 
-  char* generated_pts =  get_points(all_points_parsed, 2*numberofpoints);
+  char* generated_pts =  get_points(all_points_parsed, 3*numberofpoints);
   //printf("%s", generated_pts);
   //printf("Generated points: %s", generated_pts);
 
@@ -567,6 +576,7 @@ void gencode(double** d, int sz, char* file_location, int current_allowed_error,
   for (int i = 0; i < sz; i++) {
     fprintf(fp, "(declare-const p%dx (_ BitVec %s))\n", i, BITVECSZ);
     fprintf(fp, "(declare-const p%dy (_ BitVec %s))\n", i, BITVECSZ);
+    fprintf(fp, "(declare-const p%dz (_ BitVec %s))\n", i, BITVECSZ);
   }
   fprintf(fp, "\n");
 
@@ -577,6 +587,7 @@ void gencode(double** d, int sz, char* file_location, int current_allowed_error,
   for (int i = 0; i < sz; i++) {
     fprintf(fp, "(assert (bvuge p%dx %s))\n", i, zero_as_hexstr);
     fprintf(fp, "(assert (bvuge p%dy %s))\n", i, zero_as_hexstr);
+    fprintf(fp, "(assert (bvuge p%dz %s))\n", i, zero_as_hexstr);
   }
   fprintf(fp, "\n");
 
@@ -586,6 +597,7 @@ void gencode(double** d, int sz, char* file_location, int current_allowed_error,
   for (int i = 0; i < sz; i++) {
     fprintf(fp, "(assert (bvule p%dx %s))\n", i, points_upper_bound); 
     fprintf(fp, "(assert (bvule p%dy %s))\n", i, points_upper_bound); 
+    fprintf(fp, "(assert (bvule p%dz %s))\n", i, points_upper_bound); 
   }
   fprintf(fp, "\n");
 
@@ -595,10 +607,13 @@ void gencode(double** d, int sz, char* file_location, int current_allowed_error,
     fprintf(fp, "; anchor points are known exactly\n");
     fprintf(fp, "(assert (= p0x %s))\n", int_2_32bithex(anchorp1x));
     fprintf(fp, "(assert (= p0y %s))\n", int_2_32bithex(anchorp1y));
+    fprintf(fp, "(assert (= p0z %s))\n", int_2_32bithex(anchorp1z));
     fprintf(fp, "(assert (= p1x %s))\n", int_2_32bithex(anchorp2x));
     fprintf(fp, "(assert (= p1y %s))\n", int_2_32bithex(anchorp2y));
+    fprintf(fp, "(assert (= p1z %s))\n", int_2_32bithex(anchorp2z));
     fprintf(fp, "(assert (= p2x %s))\n", int_2_32bithex(anchorp3x));
     fprintf(fp, "(assert (= p2y %s))\n", int_2_32bithex(anchorp3y));
+    fprintf(fp, "(assert (= p2z %s))\n", int_2_32bithex(anchorp3z));
     fprintf(fp, "\n");
   }
 
@@ -651,7 +666,8 @@ void gencode(double** d, int sz, char* file_location, int current_allowed_error,
 
   //declare pointdist helper function
   fprintf(fp, ";helper function that calculates distance\n");
-  fprintf(fp, "(declare-fun pointdist ((_ BitVec %s) (_ BitVec %s) (_ BitVec %s) (_ BitVec %s)) (_ BitVec %s))\n", BITVECSZ, BITVECSZ, BITVECSZ, BITVECSZ, BITVECSZ);
+  fprintf(fp, "(declare-fun pointdist ((_ BitVec %s) (_ BitVec %s) (_ BitVec %s) (_ BitVec %s) (_ BitVec %s) (_ BitVec %s)) (_ BitVec %s))\n", 
+		BITVECSZ, BITVECSZ, BITVECSZ, BITVECSZ, BITVECSZ, BITVECSZ, BITVECSZ);
   fprintf(fp, "\n");
 
 
@@ -662,7 +678,13 @@ void gencode(double** d, int sz, char* file_location, int current_allowed_error,
 
   //definition of distance helper function using manhattan distance
   fprintf(fp, ";definition of distance helper function using manhattan distance \n");
-  fprintf(fp, "(assert (forall ((x1 (_ BitVec %s)) (x2 (_ BitVec %s)) (y1 (_ BitVec %s)) (y2 (_ BitVec %s))) (= (pointdist x1 x2 y1 y2)   (bvadd  (ite (bvuge x2 x1) (bvsub x2 x1) (bvsub x1 x2)  )  (ite (bvuge y2 y1) (bvsub y2 y1) (bvsub y1 y2)))   ) ) )\n", BITVECSZ, BITVECSZ, BITVECSZ, BITVECSZ);
+  fprintf(fp, "(assert (forall \
+	((x1 (_ BitVec %s)) (x2 (_ BitVec %s)) (y1 (_ BitVec %s)) (y2 (_ BitVec %s)) (z1 (_ BitVec %s)) (z2 (_ BitVec %s))) \
+	(= (pointdist x1 x2 y1 y2 z1 z2)   \
+		(bvadd  (ite (bvuge x2 x1) (bvsub x2 x1) (bvsub x1 x2))  \
+			(ite (bvuge y2 y1) (bvsub y2 y1) (bvsub y1 y2)) \
+			(ite (bvuge z2 z1) (bvsub z2 z1) (bvsub z1 z2)))   ) ) )\n", 
+			BITVECSZ, BITVECSZ, BITVECSZ, BITVECSZ, BITVECSZ, BITVECSZ);
   fprintf(fp, "\n");
 
 
@@ -710,8 +732,8 @@ void gencode(double** d, int sz, char* file_location, int current_allowed_error,
   for (int i = 0; i < sz; i++)
     for (int j = 0; j < sz; j++)  {
       if (i < j) {
-  	fprintf(fp, "(assert (bvule dst_p%d_p%d (bvadd (pointdist p%dx p%dx p%dy p%dy) del_p%d_p%d)))\n", i, j, i, j, i, j, i, j);
-  	fprintf(fp, "(assert (bvuge dst_p%d_p%d (bvsub (pointdist p%dx p%dx p%dy p%dy) del_p%d_p%d)))\n", i, j, i, j, i, j, i, j);
+  	fprintf(fp, "(assert (bvule dst_p%d_p%d (bvadd (pointdist p%dx p%dx p%dy p%dy p%dz p%dz) del_p%d_p%d)))\n", i, j, i, j, i, j, i, j, i, j);
+  	fprintf(fp, "(assert (bvuge dst_p%d_p%d (bvsub (pointdist p%dx p%dx p%dy p%dy p%dz p%dz) del_p%d_p%d)))\n", i, j, i, j, i, j, i, j, i, j);
       }
     }
   fprintf(fp, "\n");
@@ -725,10 +747,13 @@ void gencode(double** d, int sz, char* file_location, int current_allowed_error,
   for (int i = 0; i < sz; i++) {
     char p1s[MX];
     char p2s[MX];
+    char p3s[MX];
     sprintf(p1s, "p%dx ", i);
-    sprintf(p2s, "p%dy", i);
+    sprintf(p2s, "p%dy ", i);
+    sprintf(p3s, "p%dz", i);
     strcat(gvstr, p1s);
     strcat(gvstr, p2s);
+    strcat(gvstr, p3s);
     if (i < sz-1)
       strcat(gvstr, " ");
   }
@@ -786,17 +811,18 @@ char*  get_distortions(char** pts, int num_delta_distances, int max_distortion_v
 char* get_points(char** pts, int num_points) {
   char* retstr = malloc(sizeof(char) * MAXGV);
   strcpy(retstr, "[");
-  
-  for (int i = 0; i < num_points-1; i+= 2) {
-    if (i == num_points - 2) {
+ 
+	//magic 
+  for (int i = 0; i < num_points-1; i+= 3) {
+    if (i == num_points - 3) {
       //printf("(%s, %s)]\n", pts[i], pts[i+1]);
       //printf("(%ld, %ld)]\n", print_number_from_smt_string(pts[i]), print_number_from_smt_string(pts[i+1]));      
-      sprintf(retstr+strlen(retstr), "(%ld, %ld)]", print_number_from_smt_string(pts[i]), print_number_from_smt_string(pts[i+1]));
+      sprintf(retstr+strlen(retstr), "(%ld, %ld, %ld)]", print_number_from_smt_string(pts[i]), print_number_from_smt_string(pts[i+1]), print_number_from_smt_string(pts[i+2]));
     }
     else {
       //printf("(%s, %s), ", pts[i], pts[i+1]);
       //printf("(%ld, %ld), ", print_number_from_smt_string(pts[i]), print_number_from_smt_string(pts[i+1]));
-      sprintf(retstr+strlen(retstr), "(%ld, %ld), ", print_number_from_smt_string(pts[i]), print_number_from_smt_string(pts[i+1]));
+      sprintf(retstr+strlen(retstr), "(%ld, %ld, %ld), ", print_number_from_smt_string(pts[i]), print_number_from_smt_string(pts[i+1]), print_number_from_smt_string(pts[i+2]));
     }
   }
 

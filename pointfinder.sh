@@ -4,7 +4,7 @@
 set -e 
 
 #The tool needs precisely one argument when invoked: a (plain text) description file.
-if [ "$#" -ne 5 ] && [ "$#" -ne 11 ] ||  [ ! -e $1 ]
+if [ "$#" -ne 5 ] && [ "$#" -ne 14 ] ||  [ ! -e $1 ]
 then
   echo "[pointfinder] usage: $0 DISTANCE_MATRIX_FILE_PATH  MIN_DISTANCE_ERROR MAX_DISTANCE_ERROR ERROR_INCREMENT POINT_COORDINATES_UPPER_BOUND [anchorp1.x anchorp1.y anchorp2.x anchorp2.y anchorp3.x anchorp3.y]" >&2
   echo "[pointfinder] Make sure that (MAX_DISTANCE_ERROR - MIN_DISTANNCE_ERROR)/ERROR_INCREMENT is integral"
@@ -55,7 +55,7 @@ if [ "$#" -eq 5 ]
 then 
 mpirun -np ${NUMTHREADS} ./driver.bin ${DISTANCE_MATRIX_FILE_PATH}  ${DISTANCE_ERROR_LOWER_BOUND} ${DISTANCE_ERROR_UPPER_BOUND} ${DISTANCE_ERROR_INCREMENT} ${POINT_COORDINATES_UPPER_BOUND} ${OUTPUT_DATA_DIR_FULLPATH}
 else
-mpirun -np ${NUMTHREADS} ./driver.bin ${DISTANCE_MATRIX_FILE_PATH}  ${DISTANCE_ERROR_LOWER_BOUND} ${DISTANCE_ERROR_UPPER_BOUND} ${DISTANCE_ERROR_INCREMENT} ${POINT_COORDINATES_UPPER_BOUND} ${OUTPUT_DATA_DIR_FULLPATH} $6 $7 $8 $9 ${10} ${11}
+mpirun -np ${NUMTHREADS} ./driver.bin ${DISTANCE_MATRIX_FILE_PATH}  ${DISTANCE_ERROR_LOWER_BOUND} ${DISTANCE_ERROR_UPPER_BOUND} ${DISTANCE_ERROR_INCREMENT} ${POINT_COORDINATES_UPPER_BOUND} ${OUTPUT_DATA_DIR_FULLPATH} $6 $7 $8 $9 ${10} ${11} ${12} ${13} ${14}
 fi
 
 echo -e "[pointfinder] pointfinder has terminated."
