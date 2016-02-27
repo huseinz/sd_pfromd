@@ -42,6 +42,7 @@ if  [ -z "$1" ]; then
 fi
 
 FCSFILE="$1" 
+FCSFILE=`readlink -f $FCSFILE`
 
 echo "FCS file:" $FCSFILE
 if [ ! -f "$FCSFILE" ]; then
@@ -84,28 +85,28 @@ fi
 
 
 echo "Parsing FCS file, generating submatrices, and projecting anchorpoints..."
-./generate_matrices.R "$FCSFILE" "$MAXPOINTS" > gmf
+./generate_matrices.R "$FCSFILE" "$MAXPOINTS" > ${TOPDIR}/gmf
 
 if [ $? -ne 0 ]; then
 	exit 1
 fi
 
 
-NUMPOINTS=`grep -o '\[1\] [0-9]\+' gmf | sed 's/\[1\] //g'`
+NUMPOINTS=`grep -o '\[1\] [0-9]\+' ${TOPDIR}/gmf | sed 's/\[1\] //g'`
 echo "Final number of points: $NUMPOINTS" 
-DIR=`grep -o '".\+"' gmf | tr -d '"'`
-rm gmf
+DIR=`grep -o '".\+"' ${TOPDIR}/gmf | tr -d '"'`
+rm ${TOPDIR}/gmf
 
-ANCHORPOINTS=`$APOINTPARSE_PATH log_*`
+ANCHORPOINTS=`$APOINTPARSE_PATH log_anchorpoints_*`
 echo
 echo "Projected anchorpoints: $ANCHORPOINTS"
 
 echo "Projecting points..."
-ls matrices | parallel --eta -j$JOBS "\"$POINTFINDER_PATH\" matrices/{} 1500 2000 500 1000000000 $ANCHORPOINTS"
+ls matrices | parallel --eta -j$JOBS "\"$POINTFINDER_PATH\" matrices/{} 2000 2500 500 1000000000 $ANCHORPOINTS"
 
 echo
 echo "Parsing output files, this will take a while..."
-"$BESTPOINTPARSE_PATH" > ${LOGDIR}_points.txt
+"$BESTPOINTPARSE_PATH" > points.txt
 
 echo "Done" 
-echo "Projected points written to ${TOPDIR}/points.txt"
+echo "Projected points written to `pwd`/points.txt"
