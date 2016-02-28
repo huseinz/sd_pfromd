@@ -102,7 +102,7 @@ echo
 echo "Projected anchorpoints: $ANCHORPOINTS"
 
 echo "Projecting points..."
-ls matrices | parallel --eta -j$JOBS "\"$POINTFINDER_PATH\" matrices/{} 2000 2500 500 1000000000 $ANCHORPOINTS"
+ls matrices | parallel --eta -j$JOBS "\"$POINTFINDER_PATH\" matrices/{} 1000 2500 500 1000000000 $ANCHORPOINTS"
 
 echo
 echo "Parsing output files, this will take a while..."
